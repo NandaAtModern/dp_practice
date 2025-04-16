@@ -1,0 +1,64 @@
+name: productaffinity-practice
+version: v1beta
+entity: product
+type: data
+tags:
+  - DPDomain.Marketing
+  - DPUsecase.Customer Segmentation
+  - DPUsecase.Product Recommendation
+  - DPTier.Consumer Aligned
+description: Identifies cross-sell opportunities through product affinity analysis, improving recommendations by understanding product relationships.
+refs:
+  # - title: 'Workspace Info'
+  #   href: https://dataos.info/interfaces/cli/command_reference/#workspace
+
+  # - title: 'Product Affinity Analysis'
+  #   href: https://app.appsmith.com/app/product-affinity-demo/page1-67777255cf8fcd425e4a018f
+v1beta:
+  data:
+    meta:
+      title: Product Affinity Practice
+      # sourceCodeUrl: https://bitbucket.org/tmdc/product-affinity-training/src/main/
+      # trackerUrl: https://rubikai.atlassian.net/browse/DPRB-65
+ 
+    collaborators:
+      # - name: manishagrawal
+      #   description: owner
+      # - name: deepakjaiswal
+      #   description: developer
+      - name: nandapage
+        description: developer
+      # - name: aayushisolanki
+      #   description: consumer
+    resource:
+      refType: dataos
+      ref: bundle:v1beta:productaffinity-bundle-practice
+
+    inputs:
+      - refType: dataos
+        ref: dataset:icebase:customer_relationship_management:customer_data
+
+      - refType: dataos
+        ref: dataset:icebase:customer_relationship_management:purchase_data
+
+      - refType: dataos
+        ref: dataset:icebase:customer_relationship_management:product_data
+
+    outputs:
+      # - refType: dataos
+      #   ref: dataset:lakehouse:customer_relationship_management:product_affinity_matrix
+
+      - refType: dataos
+        ref: dataset:icebase:customer_relationship_management:cross_sell_recommendations
+
+    # ports:
+    #   lens:
+    #     ref: lens:v1alpha:productaffinity:public
+    #     refType: dataos
+
+    #   talos:
+    #     - ref: service:v1:product-affinity-api:public
+    #       refType: dataos
+
+
+      

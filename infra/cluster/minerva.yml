@@ -1,0 +1,55 @@
+name: miniature
+version: v1
+type: cluster
+tags:
+  - cluster
+  - minerva
+  - dataos:type:resource
+  - dataos:resource:cluster
+  - dataos:layer:system
+  - dataos:workspace:system
+description: the default minerva cluster a
+owner: 
+workspace: system
+cluster:
+  compute: query-default
+  type: minerva
+  minerva:
+    replicas: 1
+    resources:
+      requests:
+        cpu: 1000m
+        memory: 2Gi
+      limits:
+        cpu: 3000m
+        memory: 6Gi
+    debug:
+      logLevel: INFO
+      trinoLogLevel: ERROR
+    coordinatorEnvs:
+      CONF__config__query.max-stage-count: '300'
+      "JVM__opts": "--add-opens=java.base/java.nio=ALL-UNNAMED"
+    workerEnvs:
+      CONF__config__query.max-stage-count: '300'
+      "JVM__opts": "--add-opens=java.base/java.nio=ALL-UNNAMED"
+    depots:
+      - address: dataos://gateway:default
+      - address: dataos://metisdb:default
+      - address: dataos://depotservice:default
+      - address: dataos://lakehouse:none?acl=rw
+      - address: dataos://postgres:default?acl=rw
+      - address: dataos://ecpgdepot:default?acl=rw
+      - address: dataos://sivapostgresdepot:default?acl=rw
+      - address: dataos://bigquerysiva:default?acl=rw
+      - address: dataos://arablepostgres:default?acl=rw
+    catalogs:
+      - name: cache
+        type: memory
+        properties:
+          memory.max-data-per-node: 128MB
+
+
+  runAsApiKey: 
+  runAsUser: minerva-cluster
+  maintenance:
+    restartCron: 13 1 */2 * *

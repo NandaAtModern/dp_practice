@@ -1,0 +1,60 @@
+version: v1 
+name: wf-marketing-data
+type: workflow
+tags:
+  - crm
+description: Ingesting marketing data in postgres 
+workflow:
+  # schedule:
+  #   cron: '00 20 * * *'
+  #  # endOn: '2023-12-12T22:00:00Z'
+  #   concurrencyPolicy: Forbid
+  dag:
+    - name: dg-marketing-data
+      spec:
+        tags:
+          - crm
+        stack: flare:6.0
+        compute: runnable-default
+        stackSpec:
+          driver:
+            coreLimit: 2000m
+            cores: 1
+            memory: 2000m
+          executor:
+            coreLimit: 2000m
+            cores: 1
+            instances: 1
+            memory: 2000m
+          job:
+            explain: true
+            logLevel: INFO
+            inputs:
+              - name: marketing_data
+                dataset: dataos://thirdparty:onboarding/marketing.csv?acl=rw
+                format: csv
+                options:
+                  inferSchema: true
+    
+            steps:
+              - sequence:
+                  - name: final
+                    sql: >
+                      SELECT 
+                        CAST(customer_id AS LONG) as customer_id, 
+                        CAST(acceptedcmp1 AS LONG) as acceptedcmp1, 
+                        CAST(acceptedcmp2 AS LONG) as acceptedcmp2,
+                        CAST(acceptedcmp3 AS LONG) as acceptedcmp3, 
+                        CAST(acceptedcmp4 AS LONG) as acceptedcmp4, 
+                        CAST(acceptedcmp5 AS LONG) as acceptedcmp5,
+                        CAST(response AS LONG) as response
+                      FROM marketing_data
+                    
+            outputs:
+              - name: final
+                dataset: dataos://postgres:public/marketing_data?acl=rw
+                driver: org.postgresql.Driver
+                format: jdbc
+                title: Marketing Dataset
+                options:
+                  saveMode: overwrite

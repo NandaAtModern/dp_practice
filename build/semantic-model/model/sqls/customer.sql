@@ -1,0 +1,9 @@
+SELECT 
+    customer_id, 
+    birth_year, 
+    education, 
+    marital_status, 
+    income, 
+    country 
+FROM 
+    icebase.sachin_exp.customer_data
