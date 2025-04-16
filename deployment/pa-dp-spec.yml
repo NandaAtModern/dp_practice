@@ -1,4 +1,4 @@
-name: productaffinity-practice
+name: productaffinity-practice-np
 version: v1beta
 entity: product
 type: data
@@ -7,7 +7,7 @@ tags:
   - DPUsecase.Customer Segmentation
   - DPUsecase.Product Recommendation
   - DPTier.Consumer Aligned
-description: Identifies cross-sell opportunities through product affinity analysis, improving recommendations by understanding product relationships.
+description: Practice DP
 refs:
   # - title: 'Workspace Info'
   #   href: https://dataos.info/interfaces/cli/command_reference/#workspace
@@ -32,29 +32,29 @@ v1beta:
       #   description: consumer
     resource:
       refType: dataos
-      ref: bundle:v1beta:productaffinity-bundle-practice
+      ref: bundle:v1beta:productaffinity-bundle-practice-np
 
     inputs:
       - refType: dataos
-        ref: dataset:icebase:customer_relationship_management:customer_data
+        ref: dataset:icebase:sachin_exp:customer_data
 
       - refType: dataos
-        ref: dataset:icebase:customer_relationship_management:purchase_data
+        ref: dataset:postgressd:public:purchase_data
 
       - refType: dataos
-        ref: dataset:icebase:customer_relationship_management:product_data
+        ref: dataset:icebase:sachin_exp:product_data
 
     outputs:
-      # - refType: dataos
-      #   ref: dataset:lakehouse:customer_relationship_management:product_affinity_matrix
-
       - refType: dataos
-        ref: dataset:icebase:customer_relationship_management:cross_sell_recommendations
+        ref: dataset:icebase:sachin_exp:product_affinity_matrix
 
-    # ports:
-    #   lens:
-    #     ref: lens:v1alpha:productaffinity:public
-    #     refType: dataos
+      # - refType: dataos
+      #   ref: dataset:icebase:customer_relationship_management:cross_sell_recommendations
+
+    ports:
+      lens:
+        ref: lens:v1alpha:productaffinity:public
+        refType: dataos
 
     #   talos:
     #     - ref: service:v1:product-affinity-api:public

@@ -1,4 +1,4 @@
-name: productaffinity-bundle-practice
+name: productaffinity-bundle-dp-practice
 version: v1beta
 type: bundle
 tags:
@@ -7,9 +7,9 @@ description: This bundle resource is for the product affinity data product.
 layer: "user"
 bundle:
   resources:
-    # - id: lens
-    #   file: build/semantic-model/deployment.yml
-    #   workspace: public
+    - id: lens
+      file: build/semantic-model/deployment.yml
+      workspace: public
 
     # - id: api
     #   file: activation/data-apis/service.yml
